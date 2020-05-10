@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     imgDir = "";
+//    imgList = {};
     if (img.isNull()) {
         ui->zoomInButton->setEnabled(false);
         ui->zoomOutButton->setEnabled(false);
@@ -24,7 +25,6 @@ MainWindow::MainWindow(QWidget *parent)
     int factor = 2;
     int w = desktopWidth / factor;
     int h = desktopHeight / factor;
-//    qDebug() << "width:" << w << "height:" << h;
     this->resize(w, h);
 
     setWindowTitle("图片查看器");
@@ -62,7 +62,7 @@ void MainWindow::scaleImage(double factor)
         ui->zoomOutButton->setEnabled(false);
     }
 
-    qDebug() << "scaleFactor after" << scaleFactor;
+//    qDebug() << "scaleFactor after" << scaleFactor;
 }
 
 void MainWindow::on_zoomOutButton_clicked()
@@ -85,12 +85,28 @@ void MainWindow::on_zoomInButton_clicked()
 
 void MainWindow::on_previousButton_clicked()
 {
-
+    int minIndex = 0;
+    if (imgIndex != minIndex) {
+        imgIndex--;
+    } else {
+        imgIndex = minIndex;
+    }
+    QString dir = imgDir;
+    qDebug() << "index" << imgIndex;
 }
 
 void MainWindow::on_nextButton_clicked()
 {
+    int size = imgList.size();
+    int maxIndex = size - 1;
+    if (imgIndex != maxIndex) {
+        imgIndex++;
+    } else {
+        imgIndex = maxIndex;
+    }
+    QString dir = imgDir;
 
+    qDebug() << "index" << imgIndex;
 }
 
 void MainWindow::on_turnLeftButton_clicked()
@@ -118,15 +134,18 @@ void MainWindow::on_openButton_clicked()
     if (path.isEmpty()) {
         return;
     } else {
+//        qDebug() << imgList;
+        currentImg = Util::getSplitLast(path, "/");
         imgDir = Util::getFileDir(path, "/");
-        QStringList files = Util::getDirBelowFiles(imgDir);
-        qDebug() << files.size();
-        for (auto f : files) {
-            qDebug() << f;
-        }
+        imgList = Util::getDirBelowFiles(imgDir);
+//        qDebug() << currentImg;
+        imgIndex = imgList.indexOf(currentImg);
+//        qDebug() << imgIndex;
+//        qDebug() << "imgList" << imgList;
 
         QPixmap tmp(path);
         img = tmp;
+        qDebug() << img;
         int w = img.width();
         int h = img.height();
         ui->viewLabel->resize(w, h);

@@ -56,6 +56,9 @@ private:
     double tmpFactor = 0;
 
     QString imgDir;
+    QStringList imgList;
+    int imgIndex;
+    QString currentImg;
 
 //    bool loadFile(const QString &imgPath);
 //    void setImage(const QImage &img);
