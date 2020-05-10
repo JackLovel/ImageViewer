@@ -88,11 +88,23 @@ void MainWindow::on_previousButton_clicked()
     int minIndex = 0;
     if (imgIndex != minIndex) {
         imgIndex--;
+        ui->previousButton->setEnabled(true);
+        ui->nextButton->setEnabled(true);
     } else {
         imgIndex = minIndex;
+        ui->previousButton->setEnabled(false);
+        ui->nextButton->setEnabled(true);
     }
     QString dir = imgDir;
-    qDebug() << "index" << imgIndex;
+    currentImg = imgList[imgIndex];
+    QString path = dir + currentImg;
+
+    QPixmap tmp(path);
+    img = tmp;
+    int w = img.width();
+    int h = img.height();
+    ui->viewLabel->resize(w, h);
+    ui->viewLabel->setPixmap(img);
 }
 
 void MainWindow::on_nextButton_clicked()
@@ -101,12 +113,23 @@ void MainWindow::on_nextButton_clicked()
     int maxIndex = size - 1;
     if (imgIndex != maxIndex) {
         imgIndex++;
+        ui->previousButton->setEnabled(true);
+        ui->nextButton->setEnabled(true);
     } else {
         imgIndex = maxIndex;
+        ui->previousButton->setEnabled(true);
+        ui->nextButton->setEnabled(false);
     }
     QString dir = imgDir;
+    currentImg = imgList[imgIndex];
+    QString path = dir + currentImg;
 
-    qDebug() << "index" << imgIndex;
+    QPixmap tmp(path);
+    img = tmp;
+    int w = img.width();
+    int h = img.height();
+    ui->viewLabel->resize(w, h);
+    ui->viewLabel->setPixmap(img);
 }
 
 void MainWindow::on_turnLeftButton_clicked()
