@@ -8,6 +8,14 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    if (img.isNull()) {
+        ui->zoomInButton->setEnabled(false);
+        ui->zoomOutButton->setEnabled(false);
+        ui->viewLabel->setText("打开一个图片(Ctrl+O)");
+    }
+
+    ui->openButton->setShortcut(QKeySequence("Ctrl+O"));
+
     scaleFactor = 1;
 
     QMap<int, int> desktop = Util::GetScreenResolution();
@@ -30,19 +38,31 @@ MainWindow::~MainWindow()
 // 缩放图片的公共函数
 void MainWindow::scaleImage(double factor)
 {
-    scaleFactor *= factor;
-    QSize size = img.size();
-    QSize scaleSize = scaleFactor * size;
+//    qDebug() << "scaleFactor before" << scaleFactor;
+    if ( scaleFactor >= 0.7 && scaleFactor <= 1.5) {
+        tmpFactor = scaleFactor;
+        QSize size = img.size();
+        QSize scaleSize = tmpFactor * size;
 
-    QSize picSize = scaleSize;
-    img = img.scaled(picSize, Qt::KeepAspectRatio);
+        img = img.scaled(scaleSize, Qt::KeepAspectRatio);
 
-    ui->viewLabel->setPixmap(img);
-    ui->viewLabel->resize(scaleSize.width(), scaleSize.height());
+        ui->viewLabel->resize(scaleSize);
+        ui->viewLabel->setPixmap(img);
 
+        ui->zoomOutButton->setEnabled(true);
+        ui->zoomInButton->setEnabled(true);
+        scaleFactor *= factor;
+    } else if (scaleFactor < 0.7) {
+        scaleFactor = tmpFactor;
+        ui->zoomInButton->setEnabled(false);
+        ui->zoomOutButton->setEnabled(true);
+    } else {
+        scaleFactor = tmpFactor;
+        ui->zoomInButton->setEnabled(true);
+        ui->zoomOutButton->setEnabled(false);
+    }
 
-//    zoomInAction->setEnabled(scaleFactor < 3.0);
-//    zoomOutAction->setEnabled(scaleFactor > 0.333);
+    qDebug() << "scaleFactor after" << scaleFactor;
 }
 
 void MainWindow::on_zoomOutButton_clicked()
@@ -51,7 +71,6 @@ void MainWindow::on_zoomOutButton_clicked()
         return;
     }
     double factor = 1.25;
-//    qDebug() << "放大" << factor;
     scaleImage(factor);
 }
 
@@ -62,8 +81,6 @@ void MainWindow::on_zoomInButton_clicked()
     }
     double factor = 0.8;
     scaleImage(factor);
-    QSize size = ui->viewLabel->size();
-    qDebug() << "缩小" << size;
 }
 
 void MainWindow::on_previousButton_clicked()
@@ -107,49 +124,8 @@ void MainWindow::on_openButton_clicked()
         int h = img.height();
         ui->viewLabel->resize(w, h);
         ui->viewLabel->setPixmap(img);
+
+        ui->zoomInButton->setEnabled(true);
+        ui->zoomOutButton->setEnabled(true);
     }
 }
-
-//bool MainWindow::loadFile(const QString &fileName)
-//{
-//    QImageReader reader(fileName);
-//    reader.setAutoTransform(true);
-
-//    const QImage newImage = reader.read();
-//    if (newImage.isNull()) {
-//        QMessageBox::information(this, QGuiApplication::applicationDisplayName(),
-//                                 tr("Cannot load %1: %2")
-//                                 .arg(QDir::toNativeSeparators(fileName), reader.errorString()));
-
-//        return false;
-//    }
-
-//    setImage(newImage);
-//    setWindowFilePath(fileName);
-
-//    const QString message = tr("Opened \"%1\", %2x%3, Depth: %4")
-//            .arg(QDir::toNativeSeparators(fileName))
-//            .arg(image.width())
-//            .arg(image.height())
-//            .arg(image.depth());
-
-//    statusBar()->showMessage(message);
-//    return true;
-//}
-
-//void MainWindow::setImage(const QImage &newImage)
-//{
-//    image = newImage;
-//    ui->viewLabel->setPixmap(QPixmap::fromImage(image));
-//    scaleFactor = 1.0;
-
-//    scrollArea->setVisible(true);
-//    printAction->setEnabled(true);
-//    fitToWindowAction->setEnabled(true);
-
-//    updateActions();
-//    if (!fitToWindowAction->isChecked())
-//        imageLabel->adjustSize();
-//}
-
-
