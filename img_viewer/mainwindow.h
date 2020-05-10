@@ -48,5 +48,13 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    QImage image;
+//    QLabel *imageLabel;       // 用于图片显示
+    QScrollArea *scrollArea;  // 滚动区域
+    double scaleFactor;       // 缩放比例
+
+//    bool loadFile(const QString &imgPath);
+//    void setImage(const QImage &img);
 };
 #endif // MAINWINDOW_H

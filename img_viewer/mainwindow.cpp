@@ -62,7 +62,59 @@ void MainWindow::on_removeButton_clicked()
 
 }
 
+// 打开图片
 void MainWindow::on_openButton_clicked()
 {
+//    QFileDialog dialog(this,  tr("Open File"));
 
+      QString path = ":/img/demo.jpg";
+      QPixmap img(path);
+      int w = img.width();
+      int h = img.height();
+      ui->viewLabel->setFixedSize(w, h);
+      ui->viewLabel->setPixmap(img);
 }
+
+//bool MainWindow::loadFile(const QString &fileName)
+//{
+//    QImageReader reader(fileName);
+//    reader.setAutoTransform(true);
+
+//    const QImage newImage = reader.read();
+//    if (newImage.isNull()) {
+//        QMessageBox::information(this, QGuiApplication::applicationDisplayName(),
+//                                 tr("Cannot load %1: %2")
+//                                 .arg(QDir::toNativeSeparators(fileName), reader.errorString()));
+
+//        return false;
+//    }
+
+//    setImage(newImage);
+//    setWindowFilePath(fileName);
+
+//    const QString message = tr("Opened \"%1\", %2x%3, Depth: %4")
+//            .arg(QDir::toNativeSeparators(fileName))
+//            .arg(image.width())
+//            .arg(image.height())
+//            .arg(image.depth());
+
+//    statusBar()->showMessage(message);
+//    return true;
+//}
+
+//void MainWindow::setImage(const QImage &newImage)
+//{
+//    image = newImage;
+//    ui->viewLabel->setPixmap(QPixmap::fromImage(image));
+//    scaleFactor = 1.0;
+
+//    scrollArea->setVisible(true);
+//    printAction->setEnabled(true);
+//    fitToWindowAction->setEnabled(true);
+
+//    updateActions();
+//    if (!fitToWindowAction->isChecked())
+//        imageLabel->adjustSize();
+//}
+
+
