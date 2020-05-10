@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    imgDir = "";
     if (img.isNull()) {
         ui->zoomInButton->setEnabled(false);
         ui->zoomOutButton->setEnabled(false);
@@ -118,6 +118,13 @@ void MainWindow::on_openButton_clicked()
     if (path.isEmpty()) {
         return;
     } else {
+        imgDir = Util::getFileDir(path, "/");
+        QStringList files = Util::getDirBelowFiles(imgDir);
+        qDebug() << files.size();
+        for (auto f : files) {
+            qDebug() << f;
+        }
+
         QPixmap tmp(path);
         img = tmp;
         int w = img.width();

@@ -55,6 +55,8 @@ private:
     double scaleFactor;       // 缩放比例
     double tmpFactor = 0;
 
+    QString imgDir;
+
 //    bool loadFile(const QString &imgPath);
 //    void setImage(const QImage &img);
     void scaleImage(double factor);
