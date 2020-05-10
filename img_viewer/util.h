@@ -2,10 +2,19 @@
 #define UTIL_H
 
 
-class Util
+#include <QObject>
+#include <QWidget>
+#include <QMap>
+#include <QDir>
+#include <QSettings>
+
+class Util : public QObject
 {
 public:
     Util();
+    ~Util();
+
+   static QMap<int, int> GetScreenResolution();
 };
 
 #endif // UTIL_H
