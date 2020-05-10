@@ -25,49 +25,49 @@
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="zoomOutButton">
        <property name="text">
         <string>放大</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="zoomInButton">
        <property name="text">
         <string>缩小</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="previousButton">
        <property name="text">
         <string>上一个</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="nextButton">
        <property name="text">
         <string>下一个</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_5">
+      <widget class="QPushButton" name="turnLeftButton">
        <property name="text">
         <string>左旋转</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_6">
+      <widget class="QPushButton" name="turnRightButton">
        <property name="text">
         <string>右旋转</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_7">
+      <widget class="QPushButton" name="removeButton">
        <property name="text">
         <string>删除</string>
        </property>
@@ -75,7 +75,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="viewLabel">
     <property name="geometry">
      <rect>
       <x>60</x>

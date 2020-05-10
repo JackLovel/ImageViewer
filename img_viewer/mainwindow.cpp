@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     int factor = 2;
     int w = desktopWidth / factor;
     int h = desktopHeight / factor;
-    qDebug() << "width:" << w << "height:" << h;
+//    qDebug() << "width:" << w << "height:" << h;
     this->resize(w, h);
 
     setWindowTitle("图片查看器");
