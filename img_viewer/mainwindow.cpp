@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    scaleFactor = 1;
 
     QMap<int, int> desktop = Util::GetScreenResolution();
     int desktopWidth = desktop.firstKey();
@@ -26,15 +27,43 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+// 缩放图片的公共函数
+void MainWindow::scaleImage(double factor)
+{
+    scaleFactor *= factor;
+    QSize size = img.size();
+    QSize scaleSize = scaleFactor * size;
+
+    QSize picSize = scaleSize;
+    img = img.scaled(picSize, Qt::KeepAspectRatio);
+
+    ui->viewLabel->setPixmap(img);
+    ui->viewLabel->resize(scaleSize.width(), scaleSize.height());
+
+
+//    zoomInAction->setEnabled(scaleFactor < 3.0);
+//    zoomOutAction->setEnabled(scaleFactor > 0.333);
+}
 
 void MainWindow::on_zoomOutButton_clicked()
 {
-
+    if (img.isNull()) {
+        return;
+    }
+    double factor = 1.25;
+//    qDebug() << "放大" << factor;
+    scaleImage(factor);
 }
 
 void MainWindow::on_zoomInButton_clicked()
 {
-
+    if (img.isNull()) {
+        return;
+    }
+    double factor = 0.8;
+    scaleImage(factor);
+    QSize size = ui->viewLabel->size();
+    qDebug() << "缩小" << size;
 }
 
 void MainWindow::on_previousButton_clicked()
@@ -72,11 +101,11 @@ void MainWindow::on_openButton_clicked()
     if (path.isEmpty()) {
         return;
     } else {
-//        qDebug() << path;
-        QPixmap img(path);
+        QPixmap tmp(path);
+        img = tmp;
         int w = img.width();
         int h = img.height();
-        ui->viewLabel->setFixedSize(w, h);
+        ui->viewLabel->resize(w, h);
         ui->viewLabel->setPixmap(img);
     }
 }
