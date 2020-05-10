@@ -65,14 +65,20 @@ void MainWindow::on_removeButton_clicked()
 // 打开图片
 void MainWindow::on_openButton_clicked()
 {
-//    QFileDialog dialog(this,  tr("Open File"));
-
-      QString path = ":/img/demo.jpg";
-      QPixmap img(path);
-      int w = img.width();
-      int h = img.height();
-      ui->viewLabel->setFixedSize(w, h);
-      ui->viewLabel->setPixmap(img);
+    QString path = QFileDialog::getOpenFileName(this,
+                                                "打开图片",
+                                                "/",
+                                                tr("图片文件 (*.png *.jpg)"));
+    if (path.isEmpty()) {
+        return;
+    } else {
+//        qDebug() << path;
+        QPixmap img(path);
+        int w = img.width();
+        int h = img.height();
+        ui->viewLabel->setFixedSize(w, h);
+        ui->viewLabel->setPixmap(img);
+    }
 }
 
 //bool MainWindow::loadFile(const QString &fileName)
