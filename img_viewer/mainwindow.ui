@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1029</width>
+    <width>1056</width>
     <height>600</height>
    </rect>
   </property>
@@ -17,13 +17,20 @@
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>9</x>
       <y>40</y>
-      <width>822</width>
+      <width>891</width>
       <height>71</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="openButton">
+       <property name="text">
+        <string>添加图片</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QPushButton" name="zoomOutButton">
        <property name="text">
@@ -94,7 +101,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1029</width>
+     <width>1056</width>
      <height>29</height>
     </rect>
    </property>

@@ -26,3 +26,43 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+void MainWindow::on_zoomOutButton_clicked()
+{
+
+}
+
+void MainWindow::on_zoomInButton_clicked()
+{
+
+}
+
+void MainWindow::on_previousButton_clicked()
+{
+
+}
+
+void MainWindow::on_nextButton_clicked()
+{
+
+}
+
+void MainWindow::on_turnLeftButton_clicked()
+{
+
+}
+
+void MainWindow::on_turnRightButton_clicked()
+{
+
+}
+
+void MainWindow::on_removeButton_clicked()
+{
+
+}
+
+void MainWindow::on_openButton_clicked()
+{
+
+}

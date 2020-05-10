@@ -29,6 +29,23 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_zoomOutButton_clicked();
+
+    void on_zoomInButton_clicked();
+
+    void on_previousButton_clicked();
+
+    void on_nextButton_clicked();
+
+    void on_turnLeftButton_clicked();
+
+    void on_turnRightButton_clicked();
+
+    void on_removeButton_clicked();
+
+    void on_openButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
