@@ -8,7 +8,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     imgDir = "";
-//    imgList = {};
     if (img.isNull()) {
         ui->zoomInButton->setEnabled(false);
         ui->zoomOutButton->setEnabled(false);
@@ -38,7 +37,6 @@ MainWindow::~MainWindow()
 // 缩放图片的公共函数
 void MainWindow::scaleImage(double factor)
 {
-//    qDebug() << "scaleFactor before" << scaleFactor;
     if ( scaleFactor >= 0.7 && scaleFactor <= 1.5) {
         tmpFactor = scaleFactor;
         QSize size = img.size();
@@ -61,8 +59,6 @@ void MainWindow::scaleImage(double factor)
         ui->zoomInButton->setEnabled(true);
         ui->zoomOutButton->setEnabled(false);
     }
-
-//    qDebug() << "scaleFactor after" << scaleFactor;
 }
 
 void MainWindow::on_zoomOutButton_clicked()
@@ -157,18 +153,14 @@ void MainWindow::on_openButton_clicked()
     if (path.isEmpty()) {
         return;
     } else {
-//        qDebug() << imgList;
         currentImg = Util::getSplitLast(path, "/");
         imgDir = Util::getFileDir(path, "/");
         imgList = Util::getDirBelowFiles(imgDir);
-//        qDebug() << currentImg;
+
         imgIndex = imgList.indexOf(currentImg);
-//        qDebug() << imgIndex;
-//        qDebug() << "imgList" << imgList;
 
         QPixmap tmp(path);
         img = tmp;
-        qDebug() << img;
         int w = img.width();
         int h = img.height();
         ui->viewLabel->resize(w, h);
