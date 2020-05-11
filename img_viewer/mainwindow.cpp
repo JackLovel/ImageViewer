@@ -199,8 +199,6 @@ void MainWindow::on_removeButton_clicked()
         path = imgDir + currentImg;
         tmp.load(path);
         img = tmp;
-        int w = img.width();
-        int h = img.height();
         ui->viewLabel->setPixmap(img);
         setWindowTitle(QString("图片查看器: %1").arg(currentImg));
     }
@@ -234,5 +232,7 @@ void MainWindow::on_openButton_clicked()
         ui->turnLeftButton->setEnabled(true);
         ui->turnRightButton->setEnabled(true);
         ui->removeButton->setEnabled(true);
+        ui->nextButton->setEnabled(imgList.size() != 1);
+        ui->previousButton->setEnabled(imgList.size() != 1);
     }
 }
