@@ -11,12 +11,18 @@ MainWindow::MainWindow(QWidget *parent)
     if (img.isNull()) {
         ui->zoomInButton->setEnabled(false);
         ui->zoomOutButton->setEnabled(false);
+        ui->previousButton->setEnabled(false);
+        ui->nextButton->setEnabled(false);
+        ui->turnLeftButton->setEnabled(false);
+        ui->turnRightButton->setEnabled(false);
+        ui->removeButton->setEnabled(false);
         ui->viewLabel->setText("打开一个图片(Ctrl+O)");
     }
 
     ui->openButton->setShortcut(QKeySequence("Ctrl+O"));
 
     scaleFactor = 1;
+    currentRotate = 0;
 
     QMap<int, int> desktop = Util::GetScreenResolution();
     int desktopWidth = desktop.firstKey();
@@ -82,6 +88,11 @@ void MainWindow::on_zoomInButton_clicked()
 void MainWindow::on_previousButton_clicked()
 {
     int minIndex = 0;
+    int size = imgList.size();
+    if (size == 1) {
+        ui->previousButton->setEnabled(false);
+        ui->nextButton->setEnabled(false);
+    }
     if (imgIndex != minIndex) {
         imgIndex--;
         ui->previousButton->setEnabled(true);
@@ -107,6 +118,11 @@ void MainWindow::on_nextButton_clicked()
 {
     int size = imgList.size();
     int maxIndex = size - 1;
+
+    if (size == 1) {
+        ui->previousButton->setEnabled(false);
+        ui->nextButton->setEnabled(false);
+    }
     if (imgIndex != maxIndex) {
         imgIndex++;
         ui->previousButton->setEnabled(true);
@@ -130,17 +146,64 @@ void MainWindow::on_nextButton_clicked()
 
 void MainWindow::on_turnLeftButton_clicked()
 {
-
+    int offset = 20;
+    currentRotate += offset;
+    QMatrix matrix;
+    matrix.rotate(currentRotate);
+    ui->viewLabel->setPixmap(img.transformed(matrix));
+    QSize imgSize = img.size();
+    ui->viewLabel->resize(imgSize);
 }
 
 void MainWindow::on_turnRightButton_clicked()
 {
+    int offset = 20;
+    currentRotate -= offset;
+    QSize imgSize = img.size();
+    ui->viewLabel->resize(imgSize);
 
+    QMatrix matrix;
+    matrix.rotate(currentRotate);
+    ui->viewLabel->setPixmap(img.transformed(matrix));
 }
+
 
 void MainWindow::on_removeButton_clicked()
 {
+//imgList
+    QString file = currentImg;
+    QString path =  imgDir + currentImg;
+    Util::removeFile(path);
 
+    int totalSize = imgList.size();
+    qDebug() << "imgIndex" << imgIndex << "totalSize - 1" << totalSize - 1;
+    if (imgIndex >= totalSize - 1) {
+        ui->viewLabel->clear();
+        ui->viewLabel->setText("没有要显示的图片了");
+        return;
+    }
+
+    if (imgList.size() == 1) {
+        imgList.removeAt(imgIndex);
+        imgIndex = -1; // 表明目录中没有图片了
+        QPixmap clearPix = QPixmap();
+        img = clearPix;
+
+        ui->viewLabel->clear();
+        ui->viewLabel->setText("没有要显示的图片了");
+    } else {
+        imgList.removeAt(imgIndex);
+
+        QPixmap tmp;
+        currentImg = imgList[imgIndex];
+        path = imgDir + currentImg;
+        tmp.load(path);
+        img = tmp;
+        int w = img.width();
+        int h = img.height();
+        ui->viewLabel->setPixmap(img);
+        setWindowTitle(QString("图片查看器: %1").arg(currentImg));
+    }
 }
 
 // 打开图片
@@ -168,5 +231,8 @@ void MainWindow::on_openButton_clicked()
 
         ui->zoomInButton->setEnabled(true);
         ui->zoomOutButton->setEnabled(true);
+        ui->turnLeftButton->setEnabled(true);
+        ui->turnRightButton->setEnabled(true);
+        ui->removeButton->setEnabled(true);
     }
 }

@@ -37,3 +37,11 @@ QStringList Util::getDirBelowFiles(const QString path)
     QStringList files = dir.entryList(nameFilters, QDir::Files|QDir::Readable, QDir::Name);
     return files;
 }
+
+void Util::removeFile(const QString path) {
+    if (path.isEmpty()) {
+        return;
+    }
+    QFile file(path);
+    file.remove();
+}

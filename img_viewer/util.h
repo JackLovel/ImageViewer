@@ -18,7 +18,7 @@ public:
    static QString getSplitLast(QString string, QString separator);
    static QString getFileDir(QString path, QString separator);
    static QStringList getDirBelowFiles(const QString path);
-
+   static void removeFile(const QString path);
 };
 
 #endif // UTIL_H

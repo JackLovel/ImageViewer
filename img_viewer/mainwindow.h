@@ -50,6 +50,7 @@ private:
     Ui::MainWindow *ui;
 
     QPixmap img;
+
 //    QLabel *imageLabel;       // 用于图片显示
     QScrollArea *scrollArea;  // 滚动区域
     double scaleFactor;       // 缩放比例
@@ -59,6 +60,7 @@ private:
     QStringList imgList;
     int imgIndex;
     QString currentImg;
+    int currentRotate;
 
 //    bool loadFile(const QString &imgPath);
 //    void setImage(const QImage &img);
