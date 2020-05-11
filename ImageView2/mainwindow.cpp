@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "util.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -20,7 +21,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(aboutAction, &QAction::triggered, this, &MainWindow::aboutSlot);
 
-    setWindowTitle(tr("Image View"));
+    setWindowTitle("图片查看器");
+    // QMap<int, int> Util::GetScreenResolution()
+//    QMap<int, int> desktop = Util::GetScreenResolution();
+//    int width = desktop.firstKey() / 2;
+//    int height = desktop[width] / 2;
+//    qDebug() << "width:" << width << "height:" << height;
+//    this->resize(width, height);
+
+    move(0, 0);
 }
 
 MainWindow::~MainWindow()
@@ -33,33 +42,33 @@ MainWindow::~MainWindow()
 void MainWindow::initUi()
 {
     scaleFactor = 1;
-    fileMenu = menuBar()->addMenu(tr("&File"));
-    editMenu = menuBar()->addMenu(tr("&Edit"));
-    viewMenu = menuBar()->addMenu(tr("&View"));
-    helpMenu = menuBar()->addMenu(tr("&Help"));
+    fileMenu = menuBar()->addMenu("文件");
+    editMenu = menuBar()->addMenu("编辑");
+    viewMenu = menuBar()->addMenu("查看");
+    helpMenu = menuBar()->addMenu("帮助");
 
-    openAction = new QAction(tr("&Open"));
+    openAction = new QAction("打开");
     openAction->setShortcut(tr("CTRL+O"));
-    saveAsAction = new QAction(tr("&Save As"));
+    saveAsAction = new QAction("保存");
     saveAsAction->setShortcut(tr("CTRL+SHIFT+S"));
-    printAction = new QAction(tr("&Print"));
+    printAction = new QAction("打印");
     printAction->setShortcut(tr("CTRL+P"));
-    exitAction = new QAction(tr("&Exit"));
+    exitAction = new QAction("退出");
     exitAction->setShortcut(tr("CTRL+Q"));
-    copyAction = new QAction(tr("&Copy"));
+    copyAction = new QAction("拷贝");
     copyAction->setShortcut(tr("CTRL+C"));
-    pasteAction = new QAction(tr("&Paste"));
+    pasteAction = new QAction("粘贴");
     pasteAction->setShortcut(tr("CTRL+V"));
-    zoomInAction = new QAction(tr("Zoom &In (25%)"));
+    zoomInAction = new QAction("放大 (25%)");
     zoomInAction->setShortcut(tr("CTRL++"));
-    zoomOutAction = new QAction(tr("Zoom &Out (25%)"));
+    zoomOutAction = new QAction("缩小(25%)");
     zoomOutAction->setShortcut(tr("CTRL+-"));
-    normalSizeAction = new QAction(tr("&Normal Size"));
+    normalSizeAction = new QAction("重置");
     normalSizeAction->setShortcut(tr("CTRL+S"));
-    fitToWindowAction = new QAction(tr("&Fit to window"));
+    fitToWindowAction = new QAction("全屏");
     fitToWindowAction->setShortcut(tr("CTRL+F"));
     fitToWindowAction->setCheckable(true);
-    aboutAction = new QAction(tr("&About"));
+    aboutAction = new QAction("关于");
 
     fileMenu->addAction(openAction);
     fileMenu->addAction(saveAsAction);
