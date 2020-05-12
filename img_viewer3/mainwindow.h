@@ -36,5 +36,7 @@ private:
     int posY;
     int rotate;
     int rotateOffset;
+
+    void setup();
 };
 #endif // MAINWINDOW_H
