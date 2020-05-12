@@ -36,6 +36,7 @@ private:
     int posY;
     int rotate;
     int rotateOffset;
+    QString imgName;
 
     void setup();
 };

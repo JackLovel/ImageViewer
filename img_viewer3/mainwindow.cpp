@@ -68,4 +68,8 @@ void MainWindow::setup()
     posY = 200;
     rotate = 0;
     rotateOffset = 90;
+
+    imgName = ":/img/demo.png";
+
+    setWindowTitle("图片查看器");
 }
