@@ -17,14 +17,24 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *) override;
+//    void mouseMove
 
 private slots:
     void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
 
+    void on_pushButton_3_clicked();
+
+    void on_pushButton_4_clicked();
+
 private:
     Ui::MainWindow *ui;
     int factor;
+    int factorOffset;
+    int posX;
+    int posY;
+    int rotate;
+    int rotateOffset;
 };
 #endif // MAINWINDOW_H

@@ -10,6 +10,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     factor = 1;
+    factorOffset = 1;
+    posX = 670;
+    posY = 200;
+    rotate = 0;
+    rotateOffset = 90;
 }
 
 MainWindow::~MainWindow()
@@ -20,29 +25,44 @@ MainWindow::~MainWindow()
 void MainWindow::paintEvent(QPaintEvent *)
 {
         QPainter painter(this);
+        painter.setRenderHint(QPainter::Antialiasing, true);
         QImage img;
         QString name = ":/img/demo.png";
         img.load(name);
+painter.translate(890,550);
+/* 旋转的角度 */
+painter.rotate(rotate);
+/* 恢复中心点 */
+painter.translate(-890,-550);
+//        painter.rotate(rotate); //顺时针旋转90度
 
         float width = img.width();
         float height = img.height();
 
         img = img.scaled(width*factor, height*factor, Qt::KeepAspectRatio);
-        painter.drawImage(0, 0, img);
-
-
-//        painter.drawPixmap(QRect(0,0,this->width(),pixmap.height()),pixmap);
-//        painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignBottom);
+        painter.drawImage(posX, posY, img);
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-    factor += 1;
+    factor += factorOffset;
     update();
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    factor -= 1;
+    factor -= factorOffset;
+    update();
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    rotate += rotateOffset;
+    update();
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    rotate -= rotateOffset;
     update();
 }
